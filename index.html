@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tony the Pony</title>
+		<style type="text/css">
+			body {
+				font-family: sans-serif;
+			}
+
+			a {
+				color: inherit;
+				text-decoration: inherit;
+			}
+
+			.user {
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				-moz-border-radius: 5px;
+				-webkit-border-radius: 5px;
+				background-color: #eee;
+				display: inline-block;
+				width: 200px;
+				margin: 2px;
+				padding: 2px;
+				background-repeat: no-repeat;
+				height: 58px;
+			}
+
+			.first {
+				border-color: #eb0;
+				border-width: 2px;
+				background-color: #f8f080;
+			}
+
+			.second {
+				border-color: #bbb;
+				border-width: 2px;
+				background-color: #ccc;
+			}
+
+			.third {
+				border-color: #bf6001;
+				border-width: 2px;
+				background-color: #f8a080;
+			}
+
+			.gravatar {
+				float: left;
+			}
+
+			.stats {
+				float: right;
+				text-align: right;
+			}
+
+			.name, .reputation, .badges {
+			}
+
+			.badgegold {
+				color: #eb0;
+			}
+
+			.badgesilver {
+				color: #bbb;
+			}
+
+			.badgebronze {
+				color: #bf6001;
+			}
+		</style>
+		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+                <script type="text/javascript">
+                        google.load("jquery", "1.5.0");
+                </script>
+		<script type="text/javascript" src="http://get-query-string-jquery-plugin.googlecode.com/svn/trunk/jquery.getUrlParam.js"></script>
+                <script type="text/javascript">
+
+			var userIds = {};
+
+			var idsQueryString = $(document).getUrlParam("ids");
+		
+			$.each( idsQueryString.split(","), function(i,u){ userIds[u] = null; } )
+	
+			$(document).ready(function() {
+				for (userId in userIds) {
+					getReputation(userId);
+				}
+			});
+			function getReputation(userId) {
+				$.ajax({
+					url: "http://api.stackoverflow.com/1.1/users/" + userId + "?jsonp=?",
+					dataType: "jsonp",
+					success: function(resultObject) {
+						if (resultObject.total == 0) return;
+						userIds[userId] = resultObject.users[0];
+						sortUsers();
+					},
+					error: function(error) {
+						console.log(error);
+					}
+				});
+			}
+			function sortUsers() {
+
+				userObjects = [];
+
+				for (userId in userIds) {
+					if (!userIds[userId]) {
+						return;
+					}
+					userObjects.push( userIds[userId] );
+				}
+
+				userObjects.sort( function (u1, u2){return u2.reputation - u1.reputation;} );
+			
+				$.each(userObjects, function(i,u){
+					var userDiv = $("<div>").addClass("user");
+
+					if (i === 0) {
+						userDiv.addClass("first");
+					} else if ( i === 1 ) {
+						userDiv.addClass("second");
+					} else if ( i === 2 ) {
+						userDiv.addClass("third");
+					}
+
+					var statsDiv = $("<div>").addClass("stats");
+
+					userDiv.css("background-image","url('http://www.gravatar.com/avatar/" + u.email_hash + "?s=62&d=identicon')");
+					
+					var nameDiv = $("<div>").addClass("name");
+
+					var profileLink = $("<a>").attr("href", "http://stackoverflow.com/users/" + u.user_id).html(u.display_name).appendTo(nameDiv);
+
+					nameDiv.appendTo(statsDiv);
+
+					var reputationDiv = $("<div>").addClass("reputation").html(u.reputation).appendTo(statsDiv);
+
+					var badgeDiv = $("<div>").addClass("badges");
+
+					$.each( ["gold","silver","bronze"], function (i, f) {
+						if (u.badge_counts[f] > 0) {
+							$("<span>").append($("<span>").addClass("badge" + f).html("&#9679;")).append($("<span>").addClass("badgecount").html(u.badge_counts[f])).appendTo(badgeDiv);
+						}
+					} );
+
+					badgeDiv.appendTo(statsDiv);
+
+					statsDiv.appendTo(userDiv);
+					
+					userDiv.appendTo($("body"));
+				});
+
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
