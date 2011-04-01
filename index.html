@@ -67,6 +67,10 @@
 			.badgebronze {
 				color: #bf6001;
 			}
+
+			#attributionLink {
+				color: #CCC;
+			}
 		</style>
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
                 <script type="text/javascript">
@@ -148,12 +152,14 @@
 
 					statsDiv.appendTo(userDiv);
 					
-					userDiv.appendTo($("body"));
+					userDiv.appendTo($("#leaderboard"));
 				});
 
 			}
 		</script>
 	</head>
 	<body>
+		<div id="leaderboard"> </div>
+		<a id="attributionLink" href="https://github.com/neilprosser/so-leaderboard">np,mjg</a>
 	</body>
 </html>
