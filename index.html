@@ -9,6 +9,9 @@
 
 			a {
 				color: inherit;
+			}
+
+			.user a, #attributionLink {
 				text-decoration: inherit;
 			}
 
@@ -79,40 +82,39 @@
 		<script type="text/javascript" src="http://get-query-string-jquery-plugin.googlecode.com/svn/trunk/jquery.getUrlParam.js"></script>
                 <script type="text/javascript">
 
-			var userIds = {};
-
-			var idsQueryString = $(document).getUrlParam("ids");
-		
-			$.each( idsQueryString.split(","), function(i,u){ userIds[u] = null; } )
-	
 			$(document).ready(function() {
-				for (userId in userIds) {
-					getReputation(userId);
+				var idsParam = $(document).getUrlParam("ids");
+				if (!idsParam) {
+					$("#leaderboard").html("You need to put some user IDs in the URL. For example: <a href='?ids=1,2,3'>index.html?ids=1,2,3</a>");
+					return;
 				}
+				var idsString = idsParam.replace(/,/g, ";");
+				getReputation(idsString);
 			});
-			function getReputation(userId) {
+			function getReputation(userIdsString) {
 				$.ajax({
-					url: "http://api.stackoverflow.com/1.1/users/" + userId + "?jsonp=?",
+					url: "http://api.stackoverflow.com/1.1/users/" + userIdsString + "?pagesize=100&page=1&jsonp=?",
 					dataType: "jsonp",
 					success: function(resultObject) {
 						if (resultObject.total == 0) return;
-						userIds[userId] = resultObject.users[0];
-						sortUsers();
+						var users = {};
+						for (u in resultObject.users) {
+							var user = resultObject.users[u];
+							users[user.user_id] = user;
+						}
+						renderUsers(users);
 					},
 					error: function(error) {
 						console.log(error);
 					}
 				});
 			}
-			function sortUsers() {
+			function renderUsers(users) {
 
 				userObjects = [];
 
-				for (userId in userIds) {
-					if (!userIds[userId]) {
-						return;
-					}
-					userObjects.push( userIds[userId] );
+				for (userId in users) {
+					userObjects.push(users[userId]);
 				}
 
 				userObjects.sort( function (u1, u2){return u2.reputation - u1.reputation;} );
