@@ -4,4 +4,4 @@ Simple little HTML/JavaScript page which allows you to make a leaderboard for St
 
 Use it like this:
 
-    https://github.com/neilprosser/so-leaderboard/index.html?userIds={id1},{id2},{id3}
+    http://neilprosser.github.com/so-leaderboard/index.html?ids={id1},{id2},{id3}
