@@ -1,71 +1,71 @@
 body {
-				font-family: sans-serif;
-			}
+	font-family: sans-serif;
+}
 
-			a {
-				color: inherit;
-			}
+a {
+	color: inherit;
+}
 
-			.user a, #attributionLink {
-				text-decoration: inherit;
-			}
+.user a, #attributionLink {
+	text-decoration: inherit;
+}
 
-			.user {
-				border: 1px solid #ccc;
-				border-radius: 5px;
-				-moz-border-radius: 5px;
-				-webkit-border-radius: 5px;
-				background-color: #eee;
-				display: inline-block;
-				width: 200px;
-				margin: 2px;
-				padding: 2px;
-				background-repeat: no-repeat;
-				height: 58px;
-			}
+.user {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background-color: #eee;
+	display: inline-block;
+	width: 200px;
+	margin: 2px;
+	padding: 2px;
+	background-repeat: no-repeat;
+	height: 58px;
+}
 
-			.first {
-				border-color: #eb0;
-				border-width: 2px;
-				background-color: #f8f080;
-			}
+.first {
+	border-color: #eb0;
+	border-width: 2px;
+	background-color: #f8f080;
+}
 
-			.second {
-				border-color: #bbb;
-				border-width: 2px;
-				background-color: #ccc;
-			}
+.second {
+	border-color: #bbb;
+	border-width: 2px;
+	background-color: #ccc;
+}
 
-			.third {
-				border-color: #bf6001;
-				border-width: 2px;
-				background-color: #f8a080;
-			}
+.third {
+	border-color: #bf6001;
+	border-width: 2px;
+	background-color: #f8a080;
+}
 
-			.gravatar {
-				float: left;
-			}
+.gravatar {
+	float: left;
+}
 
-			.stats {
-				float: right;
-				text-align: right;
-			}
+.stats {
+	float: right;
+	text-align: right;
+}
 
-			.name, .reputation, .badges {
-			}
+.name, .reputation, .badges {
+}
 
-			.badgegold {
-				color: #eb0;
-			}
+.badgegold {
+	color: #eb0;
+}
 
-			.badgesilver {
-				color: #bbb;
-			}
+.badgesilver {
+	color: #bbb;
+}
 
-			.badgebronze {
-				color: #bf6001;
-			}
+.badgebronze {
+	color: #bf6001;
+}
 
-			#attributionLink {
-				color: #CCC;
-			}
+#attributionLink {
+	color: #CCC;
+}
