@@ -1,26 +1,32 @@
-describe("leaderboard", function(){
+describe("stackoverflow", function(){
 
-  describe( "when making urls to call SO", function(){ 
+  describe( "when calling SO API", function(){
+	  it( "should return obejcts in the form we expect", function(){
 
-	it ( "should transform array of ids [1] into an API call to stack overflow", function(){
-		var soUrl = Leaderboard.getSoUrl([1]);
-		expect( soUrl ).toEqual( "http://api.stackoverflow.com/1.1/users/1?pagesize=100&page=1&jsonp=?" )
+    $.ajax({
+		url: "http://api.stackoverflow.com/1.1/users/268618?pagesize=100&page=1&jsonp=?",
+		dataType: "jsonp",
+        async: false,
+		success: function( resp ){
+
+			expect ( resp.users ).toBeDefined();
+			expect ( resp.users.length ).toEqual(1);
+
+			// we use 268618 as he doesn't have many medals
+			var user268618 = resp.users[0];
+
+			expect ( user268618 ).toBeDefined();
+			expect ( user268618.user_id ).toBeDefined();
+			expect ( user268618.reputation ).toBeDefined();
+			expect ( user268618.email_hash ).toBeDefined();
+			expect ( user268618.badge_counts ).toBeDefined();
+			expect ( user268618.badge_counts.gold ).toBeDefined();
+			expect ( user268618.badge_counts.silver ).toBeDefined();
+			expect ( user268618.badge_counts.bronze ).toBeDefined();
+
+		},
 	});
 
-	it ( "should transform arrays of ids [1,2,3] into an API call to stack overflow", function(){
-		var soUrl = Leaderboard.getSoUrl([1,2,3]);
-		expect( soUrl ).toEqual( "http://api.stackoverflow.com/1.1/users/1;2;3?pagesize=100&page=1&jsonp=?" )
-	});
-
-	it ( "should transform empty arrays of ids [] into undefined", function(){
-		var soUrl = Leaderboard.getSoUrl([]);
-		expect( soUrl ).toBeUndefined();
-	});
-
-  });
-
-  describe( "when handling data returned from SO", function(){
-	  it( "should transform SO user object into one which we can use", function(){
 
 		  var example_so_user = {
 			  "user_id": 1,
