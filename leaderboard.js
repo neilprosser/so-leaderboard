@@ -8,6 +8,7 @@ $(document).ready(function() {
 	var idsString = idsParam.replace(/,/g, ";");
 	getReputation(idsString);
 });
+
 function getReputation(userIdsString) {
 	$.ajax({
 		url: "http://api.stackoverflow.com/1.1/users/" + userIdsString + "?pagesize=100&page=1&jsonp=?",
