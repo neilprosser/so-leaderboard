@@ -1,7 +1,5 @@
 var Leaderboard = (function(){
-	// Pure code methods
-
-    var d = console.log
+	// Pure js methods
 
     var leaderboard = {};
 
@@ -44,6 +42,7 @@ var Leaderboard = (function(){
 				.sort( leaderboard.reputationSort )
 				.map(  leaderboard.createDomObject )
 				.each( function( _, u ){ u.appendTo($("#leaderboard")) } );
+
     }
 
     return leaderboard;
@@ -93,8 +92,6 @@ Leaderboard = (function(leaderboard){
       if ( soUser.scores ){
 
         $.each( soUser.scores, function( idx, score ){
-          console.log(idx);
-          console.log(score);
           if ( score > 0 ){
            var thisBadgeDiv = $("<span>").addClass("badge"+idx);
 		   thisBadgeDiv.html("&#9679;");
