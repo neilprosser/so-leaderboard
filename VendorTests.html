@@ -16,13 +16,13 @@
   <script type="text/javascript" src="leaderboard2.js"></script>
 
   <!-- include spec files here... -->
-  <script type="text/javascript" src="leaderboard2-spec.js"></script>
+  <script type="text/javascript" src="leaderboard-vendor-spec.js"></script>
 
 </head>
 <body>
 
-<h1>Leaderboard tests</h1>
-<p>Tests for the code which produces our leaderboard.  To run the vendor tests which check that stackoverflow API is available and working as we expect, look at the <a href="VendorTests.html">Vendor tests</a></p>
+<h1>Vendor tests</h1>
+<p>Tests that check that the StackOverflow API is available and working as we expect.  These are in a separate file to avoid the StackOverflow API being hammered as we do our TDD.  For the main test suite, look at the <a href="LeaderboardTests.html">Leaderboard tests</a></p>
 
 <script type="text/javascript">
   jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
