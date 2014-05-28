@@ -4,21 +4,20 @@ var Leaderboard = (function(){
     var leaderboard = {};
 
 	leaderboard.convertSoUser = function ( idx, soUser) {
+console.log(soUser);
       ourUser = {};
 
-      ourUser.realname   = soUser.display_name;
-      ourUser.reputation = soUser.reputation;
-      ourUser.scores     = soUser.badge_counts;
-
-      ourUser.gravatarImg = "http://www.gravatar.com/avatar/" + soUser.email_hash + "?s=62&d=identicon";
-      ourUser.profileLink = "http://www.stackoverflow.com/users/" + soUser.user_id;
+      ourUser.realname     = soUser.display_name;
+      ourUser.reputation   = soUser.reputation;
+      ourUser.scores       = soUser.badge_counts;
+      ourUser.profileImage = soUser.profile_image;
       return ourUser;
     };
 
     leaderboard.getSoUrl = function( ids ){
       if ( ids === undefined ) return undefined;
       if ( ids.length === 0  ) return undefined;
-	  return "http://api.stackoverflow.com/1.1/users/"+ ids.join(";") +"?pagesize=100&page=1&jsonp=?"
+	  return "http://api.stackexchange.com/2.2/users/"+ ids.join(";") +"?site=stackoverflow&pagesize=100&page=1&order=desc&sort=reputation&jsonp=?"
 	};
 
     leaderboard.reputationSort = function( u1, u2 ){
@@ -37,7 +36,7 @@ var Leaderboard = (function(){
 			return;
 		}
 	
-        $( response.users )
+        $( response.items )
 				.map(  leaderboard.convertSoUser )
 				.sort( leaderboard.reputationSort )
 				.map(  leaderboard.createDomObject )
@@ -61,7 +60,9 @@ Leaderboard = (function(leaderboard){
         }
       });
 
-      div.css("background-image", "url('" + soUser.gravatarImg + "')");
+      div.css("background-image", "url('" + soUser.profileImage + "')");
+      div.css("background-size", "62px 62px");
+      div.css("background-repeat", "no-repeat");
 
       var statsDiv = $("<div>").addClass("stats");
 

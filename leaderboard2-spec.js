@@ -4,12 +4,12 @@ describe("leaderboard", function(){
 
 	it ( "should transform array of ids [1] into an API call to stack overflow", function(){
 		var soUrl = Leaderboard.getSoUrl([1]);
-		expect( soUrl ).toEqual( "http://api.stackoverflow.com/1.1/users/1?pagesize=100&page=1&jsonp=?" )
+		expect( soUrl ).toEqual( "http://api.stackexchange.com/2.2/users/1?site=stackoverflow&pagesize=100&page=1&order=desc&sort=reputation&jsonp=?" )
 	});
 
 	it ( "should transform arrays of ids [1,2,3] into an API call to stack overflow", function(){
 		var soUrl = Leaderboard.getSoUrl([1,2,3]);
-		expect( soUrl ).toEqual( "http://api.stackoverflow.com/1.1/users/1;2;3?pagesize=100&page=1&jsonp=?" )
+		expect( soUrl ).toEqual( "http://api.stackexchange.com/2.2/users/1;2;3?site=stackoverflow&pagesize=100&page=1&order=desc&sort=reputation&jsonp=?" )
 	});
 
 	it ( "should transform empty arrays of ids [] into undefined", function(){
@@ -32,6 +32,7 @@ describe("leaderboard", function(){
 				"silver": 65,
 				"bronze": 79
 			  },
+                          profile_image: "https://www.gravatar.com/avatar/df2385041c2449f404071930e98c9c28?s=128&d=identicon&r=PG",
 			  "ANY_OTHER_CRAP": "IS_IGNORED"
 			}
 
@@ -42,8 +43,7 @@ describe("leaderboard", function(){
 		expect( user.scores.gold   ).toEqual( 21 );
 		expect( user.scores.silver ).toEqual( 65 );
 		expect( user.scores.bronze ).toEqual( 79 );
-		expect( user.gravatarImg   ).toEqual( "http://www.gravatar.com/avatar/51d623f33f8b83095db84ff35e15dbe?s=62&d=identicon" );
-		expect( user.profileLink   ).toEqual( "http://www.stackoverflow.com/users/1" );
+                expect( user.profileImage  ).toEqual( "https://www.gravatar.com/avatar/df2385041c2449f404071930e98c9c28?s=128&d=identicon&r=PG" );
 
 	  });
   });

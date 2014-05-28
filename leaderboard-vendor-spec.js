@@ -4,7 +4,7 @@ describe("stackoverflow", function(){
 	  it( "should return obejcts in the form we expect", function(){
 
     $.ajax({
-		url: "http://api.stackoverflow.com/1.1/users/268618?pagesize=100&page=1&jsonp=?",
+		url: "http://api.stackoverflow.com/2.2/users/268618?site=stackoverflow&pagesize=100&page=1&order=desc&sort=reputation&jsonp=?",
 		dataType: "jsonp",
         async: false,
 		success: function( resp ){
@@ -23,6 +23,7 @@ describe("stackoverflow", function(){
 			expect ( user268618.badge_counts.gold ).toBeDefined();
 			expect ( user268618.badge_counts.silver ).toBeDefined();
 			expect ( user268618.badge_counts.bronze ).toBeDefined();
+                        expect ( user268618.profile_image ).toBeDefined();
 
 		},
 	});
@@ -38,6 +39,7 @@ describe("stackoverflow", function(){
 				"silver": 65,
 				"bronze": 79
 			  },
+                          profile_image: "https://www.gravatar.com/avatar/df2385041c2449f404071930e98c9c28?s=128&d=identicon&r=PG",
 			  "ANY_OTHER_CRAP": "IS_IGNORED"
 			}
 
@@ -48,8 +50,7 @@ describe("stackoverflow", function(){
 		expect( user.scores.gold   ).toEqual( 21 );
 		expect( user.scores.silver ).toEqual( 65 );
 		expect( user.scores.bronze ).toEqual( 79 );
-		expect( user.gravatarImg   ).toEqual( "http://www.gravatar.com/avatar/51d623f33f8b83095db84ff35e15dbe?s=62&d=identicon" );
-		expect( user.profileLink   ).toEqual( "http://www.stackoverflow.com/users/1" );
+                expect( user.profileImage  ).toEqual( "https://www.gravatar.com/avatar/df2385041c2449f404071930e98c9c28?s=128&d=identicon&r=PG" );
 
 	  });
   });
